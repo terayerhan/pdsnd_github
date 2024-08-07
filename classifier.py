@@ -68,7 +68,8 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
     if arch == 'resnet50':
         #base_last_layer = model.fc
         model = models.resnet50(weights='DEFAULT' if train else None)
-        print(model)        
+        print(model)
+        # Freeze all the parameter so that backpropagation does not affect them        
         if train:
             for param in model.parameters():
                 param.requires_grad = False
@@ -83,7 +84,8 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
     elif arch == 'vgg16':
         #base_last_layer = model.classifier[6]
         model = models.vgg16(weights='DEFAULT' if train else None)
-        print(model)        
+        print(model) 
+        # Freeze all the parameter so that backpropagation does not affect them       
         if train:
             for param in model.parameters():
                 param.requires_grad = False
@@ -98,7 +100,8 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
     elif arch == 'densenet121':
         #base_last_layer = model.classifier
         model = models.densenet121(weights='DEFAULT' if train else None)
-        print(model)        
+        print(model)
+        # Freeze all the parameter so that backpropagation does not affect them        
         if train:
             for param in model.parameters():
                 param.requires_grad = False
