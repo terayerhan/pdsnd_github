@@ -6,7 +6,25 @@ import torch.nn.functional as F
 
 class Classifier(nn.Module):
     def __init__(self, input_size, output_size, hidden_layers, drop_p=0.5):
-        
+        """
+        Initializes a feedforward neural network with customizable hidden layers.
+
+        This constructor builds a neural network with a specified number of hidden layers,
+        each with a defined size. It also sets up the output layer and a dropout layer for regularization.
+
+        Args:
+            input_size (int): The number of input features.
+            output_size (int): The number of output classes.
+            hidden_layers (list of int): A list where each integer represents the number of neurons in
+                                        a hidden layer. The list defines the architecture of the hidden layers.
+            drop_p (float, optional): Dropout probability for regularization. Default is 0.5.
+
+        Attributes:
+            hidden_layers (nn.ModuleList): A list of linear layers representing the hidden layers of the network.
+            output (nn.Linear): The final linear layer that transforms the output from the last hidden layer
+                                to the output size.
+            dropout (nn.Dropout): Dropout layer used to prevent overfitting during training.
+        """
         super().__init__()
         # Input to a hidden layer
         self.hidden_layers = nn.ModuleList([nn.Linear(input_size, hidden_layers[0])])
