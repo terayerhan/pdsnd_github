@@ -136,7 +136,32 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
     return (model, optimizer)
 
 # Function to re-build the model from a checkpoint for inference or more training (train=True).
-def load_checkpoint(file_path, train=False):    
+def load_checkpoint(file_path, train=False):
+    """
+    Loads a model and optimizer from a checkpoint file.
+
+    This function restores a saved model and optimizer state from a checkpoint file. It reinitializes the model
+    and optimizer based on the information stored in the checkpoint, then loads the saved parameters and state.
+
+    Args:
+        file_path (str): Path to the checkpoint file.
+        train (bool, optional): If True, reinitializes the model to be trainable. If False, the model will be
+                                set up as per the checkpoint's saved state. Defaults to False.
+
+    Returns:
+        tuple: A tuple containing:
+            - model (torch.nn.Module): The restored model with loaded state and classifier.
+            - optimizer (torch.optim.Optimizer): The restored optimizer with loaded state.
+
+    Notes:
+        The checkpoint file must contain the following keys:
+            - 'arch': The architecture of the model used.
+            - 'hidden_layers': List of hidden layer sizes for the classifier.
+            - 'learning_rate': The learning rate used for the optimizer.
+            - 'model_state_dict': The state dictionary of the model.
+            - 'class_to_idx': Mapping of class indices to class labels.
+            - 'optimizer_state_dict': The state dictionary of the optimizer.
+    """    
     checkpoint = torch.load(file_path)    
     model, optimizer = build_model(checkpoint['arch'],
                            checkpoint['hidden_layers'],
