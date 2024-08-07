@@ -1,5 +1,5 @@
 import torch
-from torchvision import transforms, datasets, models
+from torchvision import models
 from torch import nn, optim
 import torch.nn.functional as F
 
