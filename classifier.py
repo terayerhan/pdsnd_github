@@ -38,7 +38,18 @@ class Classifier(nn.Module):
         self.dropout = nn.Dropout(p=drop_p)
         
     def forward(self, x):
-        
+        """
+        Forward pass through the neural network.
+
+        Applies a series of hidden layers followed by a ReLU activation function and dropout,
+        then passes the result through the output layer. Finally, applies a log softmax activation.
+
+        Args:
+            x (torch.Tensor): Input tensor to the network.
+
+        Returns:
+            torch.Tensor: Log probabilities of the output classes.
+        """
         
         for each in self.hidden_layers:
             x = F.relu(each(x))
