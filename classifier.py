@@ -61,7 +61,27 @@ class Classifier(nn.Module):
 
 
 # Create a classifier base on the user selected model architecture.
-def build_model(arch, hidden_layers, learning_rate, train=False):    
+def build_model(arch, hidden_layers, learning_rate, train=False):
+    """
+    Builds and initializes a neural network model based on the specified architecture.
+
+    This function selects a model architecture from a predefined set (ResNet50, VGG16, or DenseNet121),
+    replaces the classifier layer with a custom `Classifier` instance, and sets up the optimizer. 
+    It also optionally freezes the model's parameters if training is not enabled.
+
+    Args:
+        arch (str): The architecture of the model to build. Must be one of 'resnet50', 'vgg16', or 'densenet121'.
+        hidden_layers (list of int): A list where each integer specifies the number of neurons in a hidden layer
+                                      for the classifier.
+        learning_rate (float): The learning rate for the optimizer.
+        train (bool, optional): If True, freezes the parameters of the pre-trained model to prevent updates
+                                during training. Defaults to False.
+
+    Returns:
+        tuple: A tuple containing:
+            - model (torch.nn.Module): The initialized neural network model with the custom classifier.
+            - optimizer (torch.optim.Optimizer): The Adam optimizer configured for the model's classifier parameters.
+    """   
 
     output_size = 102 # flowers    
     # Set the in_features and base_last_layer base on the arch selected
