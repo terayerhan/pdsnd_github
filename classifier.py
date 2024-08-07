@@ -161,8 +161,10 @@ def load_checkpoint(file_path, train=False):
             - 'model_state_dict': The state dictionary of the model.
             - 'class_to_idx': Mapping of class indices to class labels.
             - 'optimizer_state_dict': The state dictionary of the optimizer.
-    """    
-    checkpoint = torch.load(file_path)    
+    """ 
+    # Load the checkpoint from file_path   
+    checkpoint = torch.load(file_path)
+    # Re-build the model from checkpoint.    
     model, optimizer = build_model(checkpoint['arch'],
                            checkpoint['hidden_layers'],
                            checkpoint['learning_rate'],
