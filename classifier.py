@@ -87,7 +87,7 @@ def load_checkpoint(file_path, train=False):
                            checkpoint['hidden_layers'],
                            checkpoint['learning_rate'],
                            train=train)
-    print(model)
+    
     model.load_state_dict(checkpoint['model_state_dict'])
     model.class_to_idx = checkpoint['class_to_idx']
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
