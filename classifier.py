@@ -43,9 +43,8 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
         if train:
             for param in model.parameters():
                 param.requires_grad = False
-
-        in_features = 2048
-        classifier = Classifier(input_size=in_features,
+        
+        classifier = Classifier(input_size=2048,
                             output_size=output_size,
                             hidden_layers=hidden_layers,
                             drop_p=0.2)
@@ -58,9 +57,8 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
         if train:
             for param in model.parameters():
                 param.requires_grad = False
-
-        in_features = 4096
-        classifier = Classifier(input_size=in_features,
+        
+        classifier = Classifier(input_size=4096,
                             output_size=output_size,
                             hidden_layers=hidden_layers,
                             drop_p=0.2)
@@ -73,9 +71,8 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
         if train:
             for param in model.parameters():
                 param.requires_grad = False
-
-        in_features = 1024
-        classifier = Classifier(input_size=in_features,
+        
+        classifier = Classifier(input_size=1024,
                             output_size=output_size,
                             hidden_layers=hidden_layers,
                             drop_p=0.2)
