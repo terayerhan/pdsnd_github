@@ -55,8 +55,8 @@ class Classifier(nn.Module):
             x = F.relu(each(x))
             x = self.dropout(x)
         x = self.output(x)
-        output = F.log_softmax(x, dim=1)
-        return output
+        
+        return F.log_softmax(x, dim=1)
 
 
 
@@ -86,54 +86,51 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
     output_size = 102 # flowers    
     # Set the in_features and base_last_layer base on the arch selected
     if arch == 'resnet50':
-        #base_last_layer = model.fc
+        
         model = models.resnet50(weights='DEFAULT' if train else None)
-        print(model)
+        
         # Freeze all the parameter so that backpropagation does not affect them        
         if train:
             for param in model.parameters():
                 param.requires_grad = False
-
-        in_features = 2048
-        classifier = Classifier(input_size=in_features,
+        
+        classifier = Classifier(input_size=2048,
                             output_size=output_size,
                             hidden_layers=hidden_layers,
                             drop_p=0.2)
         model.fc = classifier
         optimizer = optim.Adam(model.fc.parameters(), lr=learning_rate)        
     elif arch == 'vgg16':
-        #base_last_layer = model.classifier[6]
+        
         model = models.vgg16(weights='DEFAULT' if train else None)
-        print(model) 
+         
         # Freeze all the parameter so that backpropagation does not affect them       
         if train:
             for param in model.parameters():
                 param.requires_grad = False
-
-        in_features = 4096
-        classifier = Classifier(input_size=in_features,
+        
+        classifier = Classifier(input_size=4096,
                             output_size=output_size,
                             hidden_layers=hidden_layers,
                             drop_p=0.2)
         model.classifier[6] = classifier
         optimizer = optim.Adam(model.classifier[6].parameters(), lr=learning_rate)
     elif arch == 'densenet121':
-        #base_last_layer = model.classifier
+        
         model = models.densenet121(weights='DEFAULT' if train else None)
-        print(model)
+        
         # Freeze all the parameter so that backpropagation does not affect them        
         if train:
             for param in model.parameters():
                 param.requires_grad = False
-
-        in_features = 1024
-        classifier = Classifier(input_size=in_features,
+        
+        classifier = Classifier(input_size=1024,
                             output_size=output_size,
                             hidden_layers=hidden_layers,
                             drop_p=0.2)
         model.classifier = classifier
         optimizer = optim.Adam(model.classifier.parameters(), lr=learning_rate)
-    return (model, optimizer)
+    return model, optimizer
 
 # Function to re-build the model from a checkpoint for inference or more training (train=True).
 def load_checkpoint(file_path, train=False):
@@ -169,10 +166,10 @@ def load_checkpoint(file_path, train=False):
                            checkpoint['hidden_layers'],
                            checkpoint['learning_rate'],
                            train=train)
-    print(model)
+    
     model.load_state_dict(checkpoint['model_state_dict'])
     model.class_to_idx = checkpoint['class_to_idx']
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 
-    return (model, optimizer) 
+    return model, optimizer 
 
