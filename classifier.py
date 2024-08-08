@@ -37,7 +37,7 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
     output_size = 102 # flowers    
     # Set the in_features and base_last_layer base on the arch selected
     if arch == 'resnet50':
-        #base_last_layer = model.fc
+        
         model = models.resnet50(weights='DEFAULT' if train else None)
                 
         if train:
@@ -51,7 +51,7 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
         model.fc = classifier
         optimizer = optim.Adam(model.fc.parameters(), lr=learning_rate)        
     elif arch == 'vgg16':
-        #base_last_layer = model.classifier[6]
+        
         model = models.vgg16(weights='DEFAULT' if train else None)
                 
         if train:
@@ -65,7 +65,7 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
         model.classifier[6] = classifier
         optimizer = optim.Adam(model.classifier[6].parameters(), lr=learning_rate)
     elif arch == 'densenet121':
-        #base_last_layer = model.classifier
+        
         model = models.densenet121(weights='DEFAULT' if train else None)
                 
         if train:
