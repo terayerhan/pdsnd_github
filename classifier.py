@@ -92,5 +92,5 @@ def load_checkpoint(file_path, train=False):
     model.class_to_idx = checkpoint['class_to_idx']
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 
-    return (model, optimizer) 
+    return model, optimizer 
 
