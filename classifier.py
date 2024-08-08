@@ -78,7 +78,7 @@ def build_model(arch, hidden_layers, learning_rate, train=False):
                             drop_p=0.2)
         model.classifier = classifier
         optimizer = optim.Adam(model.classifier.parameters(), lr=learning_rate)
-    return (model, optimizer)
+    return model, optimizer
 
 # Function to re-build the model from a checkpoint for inference or more training (train=True).
 def load_checkpoint(file_path, train=False):    
