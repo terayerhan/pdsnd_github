@@ -26,8 +26,8 @@ class Classifier(nn.Module):
             x = F.relu(each(x))
             x = self.dropout(x)
         x = self.output(x)
-        output = F.log_softmax(x, dim=1)
-        return output
+        
+        return F.log_softmax(x, dim=1)
 
 
 
